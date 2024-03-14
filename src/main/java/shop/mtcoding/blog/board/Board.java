@@ -1,13 +1,15 @@
 package shop.mtcoding.blog.board;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.mtcoding.blog.util.MyDateUtil;
 import shop.mtcoding.blog.user.User;
 
 import java.sql.Timestamp;
-
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "board_tb")
@@ -25,5 +27,13 @@ public class Board {
     private Timestamp createdAt;
     public String getBoardDate(){
         return MyDateUtil.timestampFormat(createdAt);
+    }
+    @Builder
+    public Board(Integer id, String title, String content, User user, Timestamp createdAt) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.createdAt = createdAt;
     }
 }

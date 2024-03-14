@@ -1,11 +1,13 @@
 package shop.mtcoding.blog.board;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import shop.mtcoding.blog.user.User;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardRepository boardRepository;
+    private final HttpSession session;
 
     // @Transactional 트랜잭션 시간이 너무 길어져서 service에 넣어야함
     @PostMapping("/board/{id}/update")
@@ -39,7 +42,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public String save() { // DTO 없이 구현
+    public String save(BoardRequest.SaveDTO reqDTO) { // DTO 없이 구현
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        boardRepository.save(reqDTO.toEntity(sessionUser));
         return "redirect:/";
     }
 
