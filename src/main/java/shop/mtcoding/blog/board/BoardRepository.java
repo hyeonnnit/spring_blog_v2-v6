@@ -18,6 +18,12 @@ public class BoardRepository {
     private final EntityManager em;
 
     @Transactional
+    public void updateById(int id, String title, String content){
+        Board board = findById(id);
+        board.setTitle(title);
+        board.setContent(content);
+    }
+    @Transactional
     public void save(Board board){
         em.persist(board);
     }
