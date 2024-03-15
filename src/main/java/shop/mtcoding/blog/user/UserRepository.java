@@ -10,6 +10,19 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserRepository {
     private final EntityManager em;
+
+
+    @Transactional
+    public User update(int sessionId, UserRequest.UpdateDTO requestDTO) { // DTO를 안만들고 꺼내서 넘겨도 됨 -> 재사용 가능
+        User user = findById(sessionId);
+        user.update(requestDTO);
+        return user;
+    } // 더티체킹
+
+    public User findById(int id){
+        User user = em.find(User.class,id);
+        return user;
+    }
     @Transactional
     public User save(User user){
         em.persist(user);
