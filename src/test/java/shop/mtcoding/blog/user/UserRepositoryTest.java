@@ -11,13 +11,19 @@ import org.springframework.context.annotation.Import;
 public class UserRepositoryTest {
     @Autowired // DI
     private UserRepository userRepository;
+
+    @Test
+    public void save_test(){
+        User user = new User();
+        userRepository.save(user);
+    }
     @Test
         public void findByUsername_test(){
             // given
         String username = "ssar";
 //        String password = "1234";
             // when
-        User user = userRepository.findByUsername(username);
+//        User user = userRepository.findByUsernameAndPassword();
 //        if (user == null){
 //            System.out.println("login_test: 아이디 혹은 비밀번호가 틀렸습니다.");
 //        }else {

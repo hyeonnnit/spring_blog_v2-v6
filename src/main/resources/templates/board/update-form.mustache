@@ -9,13 +9,13 @@
         <div class="card-body">
             <form action="/board/{{board.id}}/update" method="post">
                 <div class="mb-3"><!--username 추가-->
-                    <input type="text" class="form-control" placeholder="Enter username" name="username" value="ssar">
+                    <input type="text" class="form-control" placeholder="Enter username" name="username" value="{{board.username}}">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter title" name="title" value="제목1">
+                    <input type="text" class="form-control" placeholder="Enter title" name="title" value="{{board.title}}">
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" rows="5" name="content" value="내용1"></textarea>
+                    <textarea class="form-control" rows="5" name="content" value="{{board.content}}"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary form-control">글수정하기완료</button>
             </form>
