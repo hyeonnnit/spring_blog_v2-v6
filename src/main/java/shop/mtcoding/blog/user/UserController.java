@@ -14,7 +14,8 @@ public class UserController {
 
     @PostMapping("/join")
     public String join(UserRequest.SaveDTO reqDTO){
-        userRepository.save(reqDTO.toEntity());
+        User sessionUser = userRepository.save(reqDTO.toEntity());
+        session.setAttribute("sessionUser",sessionUser);
         return "redirect:/login-form";
     }
     @GetMapping("/join-form")
