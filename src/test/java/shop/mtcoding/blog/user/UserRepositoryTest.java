@@ -22,7 +22,8 @@ public class UserRepositoryTest {
         String password="123456";
         String email = "ssar12@naver.com";
         // when
-        userRepository.updateById(id, password, email);
+        UserRequest.UpdateDTO request = new UserRequest.UpdateDTO();
+        userRepository.update(id, request);
         // then
         em.flush();
         System.out.println("updateById_test : " + id);

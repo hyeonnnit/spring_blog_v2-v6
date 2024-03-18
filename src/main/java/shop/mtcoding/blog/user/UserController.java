@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
+    private final UserJPARepository userJPARepository;
     private final UserRepository userRepository;
     private final HttpSession session;
 
