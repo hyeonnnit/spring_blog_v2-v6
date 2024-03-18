@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
+    private final UserService userService;
     private final UserJPARepository userJPARepository;
     private final UserRepository userRepository;
     private final HttpSession session;
 
     @PostMapping("/join")
     public String join(UserRequest.SaveDTO reqDTO){
-        User sessionUser = userRepository.save(reqDTO.toEntity());
-        session.setAttribute("sessionUser",sessionUser);
+        userService.joinService(reqDTO);
         return "redirect:/login-form";
     }
     @GetMapping("/join-form")
