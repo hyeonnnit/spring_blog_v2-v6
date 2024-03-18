@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.board;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,6 +15,8 @@ public class BoardJPARepositoryTest {
     @Autowired
     private BoardJPARepository boardJPARepository;
 
+    @Autowired
+    private EntityManager em;
     // save
     @Test
     public void save_test() {
@@ -59,6 +62,7 @@ public class BoardJPARepositoryTest {
     }
 
     // findAll (sort)
+
    @Test
        public void findAll_test(){
            // given
@@ -76,6 +80,7 @@ public class BoardJPARepositoryTest {
         int id = 1;
             // when
         boardJPARepository.deleteById(id);
+        em.flush();
             // then
         }
 
