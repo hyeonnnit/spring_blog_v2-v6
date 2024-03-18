@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     private final UserService userService;
-    private final UserJPARepository userJPARepository;
-    private final UserRepository userRepository;
     private final HttpSession session;
 
     @PostMapping("/join")
@@ -27,11 +25,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO){
-        User sessionUser = userRepository.findByUsernameAndPassword(reqDTO);
-
-//        if (sessionUser == null){
-//            return "redirect:/login-form";
-//        }
+        User sessionUser = userService.loginService(reqDTO);
         session.setAttribute("sessionUser",sessionUser);
         return "redirect:/";
     }
@@ -43,14 +37,15 @@ public class UserController {
     @PostMapping("/user/update")
     public String update(UserRequest.UpdateDTO reqDTO){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        userRepository.update(sessionUser.getId(),reqDTO);
+        User newSessionUser = userService.updateService(sessionUser.getId(),reqDTO);
+        session.setAttribute("sessionUser",newSessionUser);
         return "redirect:/";
     }
 
     @GetMapping("/user/update-form")
     public String updateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId());
+        User user = userService.updateFormService(sessionUser.getId());
         request.setAttribute("user",user);
         return "user/update-form";
     }
