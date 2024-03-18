@@ -43,14 +43,15 @@ public class BoardService {
         boardJPARepository.save(reqDTO.toEntity(sessionUser));
     }
 
-    public void deleteService(Integer id, Integer sessionUserId) {
-        Board board = boardJPARepository.findById(id)
+    public void deleteService(int boardId, int sessionUserId) {
+        Board board = boardJPARepository.findById(boardId)
                 .orElseThrow(
                         ()-> new Exception404("게시글을 찾을 수 없습니다.")
                 );
         if (sessionUserId != board.getUser().getId()){
             throw new Exception403("게시글을 삭제할 권한이 없습니다.");
         }
+        boardJPARepository.deleteById(boardId);
     }
 
     public List<Board> findBoardListService() {
