@@ -17,7 +17,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
     private final HttpSession session;
 
     // @Transactional 트랜잭션 시간이 너무 길어져서 service에 넣어야함
