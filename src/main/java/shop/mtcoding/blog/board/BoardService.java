@@ -70,6 +70,9 @@ public class BoardService {
             }
         }
         board.setOwner(isOwner);
+
+        // lazy loading
+        board.getReplies().get(0).getComment();
         return board;
     }
 }

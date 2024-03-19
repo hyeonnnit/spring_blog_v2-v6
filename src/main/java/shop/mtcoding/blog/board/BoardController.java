@@ -79,6 +79,7 @@ public class BoardController {
         Board board = boardService.detailBoardService(id, sessionUser);
       //        request.setAttribute("isOwner", isOwner);
         request.setAttribute("board", board);
+        System.out.println("server side rendering 직전에는 Board와 User만 조회된 상태");
         return "board/detail";
     }
 }

@@ -7,9 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.mtcoding.blog._core.utils.MyDateUtil;
+import shop.mtcoding.blog.reply.Reply;
 import shop.mtcoding.blog.user.User;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -28,6 +32,8 @@ public class Board {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY) // Entity 객체의 변수명 == fk의 주인
+    private List<Reply> replies = new ArrayList<>();
     @Transient // 테이블 생성 안됨
     private boolean isOwner;
 
