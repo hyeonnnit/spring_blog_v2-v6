@@ -32,14 +32,17 @@ public class Board {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY) // Entity 객체의 변수명 == fk의 주인
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) // Entity 객체의 변수명 == fk의 주인
     private List<Reply> replies = new ArrayList<>();
     @Transient // 테이블 생성 안됨
-    private boolean isOwner;
+    private boolean isBoardOwner;
 
-    public String getBoardDate(){
+
+
+    public String getBoardDate() {
         return MyDateUtil.timestampFormat(createdAt);
     }
+
     @Builder
     public Board(Integer id, String title, String content, User user, Timestamp createdAt) {
         this.id = id;

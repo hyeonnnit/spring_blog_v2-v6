@@ -33,11 +33,11 @@ public class MyExceptionHandler {
         request.setAttribute("msg", e.getMessage());
         return "err/500";
     }
-    @ExceptionHandler(Exception.class)
-    public String exUnknown(RuntimeException e){
-        // DB에 에러 로그 남기기
-        // 관리자에게 알리기
-        // 이메일 보내기
-        return "err/unknown";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String exUnknown(RuntimeException e){
+//        // DB에 에러 로그 남기기
+//        // 관리자에게 알리기
+//        // 이메일 보내기
+//        return "err/unknown";
+//    }
 }

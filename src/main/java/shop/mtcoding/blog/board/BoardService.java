@@ -6,6 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import shop.mtcoding.blog._core.errors.exception.Exception403;
 import shop.mtcoding.blog._core.errors.exception.Exception404;
+import shop.mtcoding.blog.reply.Reply;
+import shop.mtcoding.blog.reply.ReplyJPARepository;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 @Service
 public class BoardService {
     private final BoardJPARepository boardJPARepository;
+    private final ReplyJPARepository replyJPARepository;
 
     public Board findBoardService(int id){
         Board board = boardJPARepository.findById(id)
@@ -63,16 +66,27 @@ public class BoardService {
     public Board detailBoardService(int boardId, User sessionUser) {
         Board board = boardJPARepository.findById(boardId)
                 .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
-        boolean isOwner = false;
+        boolean isBoardOwner = false;
         if (sessionUser != null){
             if (sessionUser.getId() == board.getUser().getId()){
-                isOwner = true;
+                isBoardOwner = true;
             }
         }
-        board.setOwner(isOwner);
+        board.setBoardOwner(isBoardOwner);
 
+
+        board.getReplies().forEach(reply -> {
+            boolean isReplyOwner = false;
+            if (sessionUser != null){
+                if (reply.getUser().getId() == sessionUser.getId()){
+                    isReplyOwner = true;
+                }
+            }
+            reply.setReplyOwner(isReplyOwner);
+        });
         // lazy loading
-        board.getReplies().get(0).getComment();
+//        board.getReplies().get(0).getComment();
+
         return board;
     }
 }

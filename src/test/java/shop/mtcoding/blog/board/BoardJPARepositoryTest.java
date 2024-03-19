@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Sort;
+import shop.mtcoding.blog._core.errors.exception.Exception401;
+import shop.mtcoding.blog._core.errors.exception.Exception404;
+import shop.mtcoding.blog.reply.Reply;
+import shop.mtcoding.blog.reply.ReplyJPARepository;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -16,7 +20,20 @@ public class BoardJPARepositoryTest {
     private BoardJPARepository boardJPARepository;
 
     @Autowired
+    private ReplyJPARepository replyJPARepository;
+    @Autowired
     private EntityManager em;
+//    @Test
+//        public void findByBoardId_test(){
+//            // given
+//        int boardId = 4;
+//        Board board = boardJPARepository.findByIdJoinUser(boardId)
+//                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+//            // when
+//        List<Reply> replyList = replyJPARepository.findByBoardId(boardId);
+//            // then
+//        System.out.println("findByBoardId_test: " + replyList.size());
+//        }
     @Test
         public void findByIdJoinUserAndReplies_test(){
         //given

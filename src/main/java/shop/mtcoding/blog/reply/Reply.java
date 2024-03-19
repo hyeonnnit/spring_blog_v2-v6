@@ -23,7 +23,8 @@ public class Reply {
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
-
+    @Transient
+    private boolean isReplyOwner;
     @CreationTimestamp
     private Timestamp createdAt;
 
