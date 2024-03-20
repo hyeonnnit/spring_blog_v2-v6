@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import shop.mtcoding.blog.user.User;
 
@@ -17,5 +18,11 @@ public class ReplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         replyService.saveService(reqDTO,sessionUser);
         return "redirect:/board/"+reqDTO.getBoardId();
+    }
+    @PostMapping("/board/{boardId}/reply/{replyId}/delete")
+    public String delete(@PathVariable Integer boardId, @PathVariable Integer replyId){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        replyService.deleteService(replyId, sessionUser.getId());
+        return "redirect:/board/"+boardId;
     }
 }
